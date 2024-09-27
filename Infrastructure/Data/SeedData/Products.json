@@ -1,0 +1,102 @@
+[
+  {
+    "name": "PowerCaps",
+    "description": "PowerCaps for energy boost and vitality",
+    "price": 30.00,
+    "pictureUrl": "https://example.com/powercaps",
+    "type": "Moskan PowerCaps",
+    "brand": "PowerCaps Brand",
+    "quantityInStock": 36,
+    "id": 1
+  },
+  {
+    "name": "EnergyBoost",
+    "description": "EnergyBoost supplement for daily energy",
+    "price": 45.00,
+    "pictureUrl": "https://example.com/energyboost",
+    "type": "Moskan Energy",
+    "brand": "EnergyBoost Brand",
+    "quantityInStock": 50,
+    "id": 2
+  },
+  {
+    "name": "MindSharp",
+    "description": "MindSharp cognitive enhancer",
+    "price": 55.00,
+    "pictureUrl": "https://example.com/mindsharp",
+    "type": "Moskan Cognitive",
+    "brand": "MindSharp Brand",
+    "quantityInStock": 25,
+    "id": 3
+  },
+  {
+    "name": "HealthPlus",
+    "description": "HealthPlus for immunity and overall wellness",
+    "price": 40.00,
+    "pictureUrl": "https://example.com/healthplus",
+    "type": "Moskan Health",
+    "brand": "HealthPlus Brand",
+    "quantityInStock": 60,
+    "id": 4
+  },
+  {
+    "name": "VitaBoost",
+    "description": "VitaBoost daily multivitamins for balanced health",
+    "price": 25.00,
+    "pictureUrl": "https://example.com/vitaboost",
+    "type": "Moskan Vitamins",
+    "brand": "VitaBoost Brand",
+    "quantityInStock": 80,
+    "id": 5
+  },
+  {
+    "name": "FlexiJoint",
+    "description": "FlexiJoint support for joint health and mobility",
+    "price": 50.00,
+    "pictureUrl": "https://example.com/flexijoint",
+    "type": "Moskan JointCare",
+    "brand": "FlexiJoint Brand",
+    "quantityInStock": 40,
+    "id": 6
+  },
+  {
+    "name": "ProOmega",
+    "description": "ProOmega for heart and brain health",
+    "price": 65.00,
+    "pictureUrl": "https://example.com/proomega",
+    "type": "Moskan Omega",
+    "brand": "ProOmega Brand",
+    "quantityInStock": 55,
+    "id": 7
+  },
+  {
+    "name": "ImmunoGuard",
+    "description": "ImmunoGuard for enhanced immunity",
+    "price": 35.00,
+    "pictureUrl": "https://example.com/immunoguard",
+    "type": "Moskan Immunity",
+    "brand": "ImmunoGuard Brand",
+    "quantityInStock": 100,
+    "id": 8
+  },
+  {
+    "name": "BioActive",
+    "description": "BioActive probiotic for digestive health",
+    "price": 38.00,
+    "pictureUrl": "https://example.com/bioactive",
+    "type": "Moskan Probiotic",
+    "brand": "BioActive Brand",
+    "quantityInStock": 70,
+    "id": 9
+  },
+  {
+    "name": "NutriMax",
+    "description": "NutriMax complete daily nutrition supplement",
+    "price": 60.00,
+    "pictureUrl": "https://example.com/nutrimax",
+    "type": "Moskan Nutrition",
+    "brand": "NutriMax Brand",
+    "quantityInStock": 45,
+    "id": 10
+  }
+]
