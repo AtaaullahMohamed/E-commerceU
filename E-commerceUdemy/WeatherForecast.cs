@@ -1,4 +1,4 @@
-namespace E_commerceUdemy
+namespace Api
 {
     public class WeatherForecast
     {

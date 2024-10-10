@@ -1,4 +1,4 @@
-﻿namespace E_commerceUdemy.RequestHelpers
+﻿namespace Api.RequestHelpers
 {
     public class Pagination<T>(int pagIndex,int pageSize,int count,IReadOnlyList<T>data)
     {

@@ -1,10 +1,10 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
-using E_commerceUdemy.RequestHelpers;
+using Api.RequestHelpers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_commerceUdemy.Controllers
+namespace Api.Controllers
 {
 
 
