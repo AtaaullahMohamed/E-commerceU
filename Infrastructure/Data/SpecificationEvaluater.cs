@@ -28,6 +28,10 @@ namespace Infrastructure.Data
 
             }
 
+            if(spec.IsPagingEnabled)
+            {
+                query=query.Skip(spec.Skip).Take(spec.Take);
+            }
 
             return query;
         }
