@@ -21,7 +21,7 @@ namespace Api.Controllers
         return await CreatePagedResult(repo,spec,specParams.PageIndex,specParams.PageSize);      
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
 
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -85,7 +85,8 @@ namespace Api.Controllers
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
         {
-            return Ok();
+            var brands = await repo.GetDistinctBrandsAsync();
+            return Ok(brands);
         }
 
 
@@ -93,7 +94,9 @@ namespace Api.Controllers
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
         {
-            return Ok();
+            var types = await repo.GetDistinctTypesAsync();
+            return Ok(types);
+
         }
 
         private bool ProductExists(int id)

@@ -68,6 +68,27 @@ namespace Infrastructure.Data
             context.Set<T>().Attach(entity);
             context.Entry(entity).State= EntityState.Modified;
         }
+
+
+        public async Task<IReadOnlyList<string>> GetDistinctBrandsAsync()
+        {
+            return await context.Set<Product>()
+                                 .Select(p => p.Brand)
+                                 .Distinct()
+                                 .ToListAsync();
+        }
+
+        // Implementing logic to get distinct types
+        public async Task<IReadOnlyList<string>> GetDistinctTypesAsync()
+        {
+            return await context.Set<Product>()
+                                 .Select(p => p.Type)
+                                 .Distinct()
+                                 .ToListAsync();
+        }
+
+
+
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluater<T>.GetQuery(context.Set<T>().AsQueryable(), spec);
