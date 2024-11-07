@@ -20,7 +20,7 @@ builder.Services.AddCors();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
 {
-    var connString = builder.Configuration.GetConnectionString("Redis") ?? throw new Exception("Canot ger redis connection string");
+    var connString = builder.Configuration.GetConnectionString("Redis") ?? throw new Exception("Canot get redis connection string");
     var configuration = ConfigurationOptions.Parse(connString, true);
     return ConnectionMultiplexer.Connect(configuration);
 });
