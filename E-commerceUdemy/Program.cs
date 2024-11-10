@@ -43,8 +43,13 @@ var app = builder.Build();
 
 
 app.UseMiddleware<ExpeptionMiddleware>();
+app.UseCors(x => x.AllowAnyHeader().
+                        AllowAnyMethod().
+                        AllowCredentials().
+                        WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200", "https://localhost:4200"));
+app.UseAuthentication();  // Ensure this is before authorization
+app.UseAuthorization();   // Authorization after authentication
 
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
@@ -52,6 +57,7 @@ app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
 
 try
 {
+    //update data base auto after add migration
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<StoreContext>();
