@@ -9,7 +9,7 @@ namespace Api.Controllers
 
 
 
-    public class ProductsController(IGenericRepository<Product> repo) : BaseApiController
+    public class ProductsController(IUnitOfWork unit) : BaseApiController
     {
      
 
@@ -18,14 +18,14 @@ namespace Api.Controllers
         {
             var spec = new ProductSpecification(specParams);
         
-        return await CreatePagedResult(repo,spec,specParams.PageIndex,specParams.PageSize);      
+        return await CreatePagedResult(unit.Repository<Product>(),spec,specParams.PageIndex,specParams.PageSize);      
         }
 
         [HttpGet("{id}")]
 
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await repo.GetByIdAsync(id);
+            var product = await unit.Repository<Product>().GetByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -36,9 +36,9 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
-            repo.Add(product);
+            unit.Repository<Product>().Add(product);
 
-            if (await repo.SaveAllAsync())
+            if (await unit.Repository<Product>().SaveAllAsync())
             {
                 return CreatedAtAction("GetProduct", new {id=product.Id},product); 
             }
@@ -54,9 +54,9 @@ namespace Api.Controllers
                 return BadRequest("Can't update this product");
             }
 
-            repo.Update(product);
+            unit.Repository<Product>().Update(product);
             
-            if (await repo.SaveAllAsync())
+            if (await unit.Complete())
             {
                 return NoContent();
             }
@@ -67,13 +67,13 @@ namespace Api.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
-        var product = repo.GetByIdAsync(id);
+        var product = unit.Repository<Product>().GetByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
-            repo.Remove(await product);
-            if (await repo.SaveAllAsync())
+            unit.Repository<Product>().Remove(await product);
+            if (await unit.Complete())
             {
                 return NoContent();
             }
@@ -85,7 +85,7 @@ namespace Api.Controllers
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
         {
-            var brands = await repo.GetDistinctBrandsAsync();
+            var brands = await unit.Repository<Product>().GetDistinctBrandsAsync();
             return Ok(brands);
         }
 
@@ -94,14 +94,14 @@ namespace Api.Controllers
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
         {
-            var types = await repo.GetDistinctTypesAsync();
+            var types = await unit.Repository<Product>().GetDistinctTypesAsync();
             return Ok(types);
 
         }
 
         private bool ProductExists(int id)
         {
-            return repo.Exists(id);
+            return unit.Repository<Product>().Exists(id);
         }
 
     }

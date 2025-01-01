@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace Infrastructure.Services
 {
     public class PaymentService(IConfiguration config,ICartService cartService ,
-        IGenericRepository<Core.Entities.Product> productRepo ,
-        IGenericRepository<DeliveryMethod> deliveryRepo) : IPaymentService
+        IUnitOfWork unit) : IPaymentService
 
 
     {
@@ -29,7 +28,7 @@ namespace Infrastructure.Services
 
             if (cart.DeliveryMethodId.HasValue )
             {
-                var deliveryMethod = await deliveryRepo.GetByIdAsync((int)cart.DeliveryMethodId);
+                var deliveryMethod = await unit.Repository<DeliveryMethod>().GetByIdAsync((int)cart.DeliveryMethodId);
                 if(deliveryMethod == null )
                 {
                     return null ;
@@ -40,7 +39,7 @@ namespace Infrastructure.Services
             }
             foreach (var item in cart.Items)
             {
-                var prpductItem = await productRepo.GetByIdAsync(item.ProductId);
+                var prpductItem = await unit.Repository<Core.Entities.Product>().GetByIdAsync(item.ProductId);
                 if (prpductItem == null )
                 {
                     return null;
