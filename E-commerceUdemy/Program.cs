@@ -1,6 +1,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using E_commerceUdemy.Middleware;
+using E_commerceUdemy.SignalR;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,7 @@ builder.Services.AddIdentityApiEndpoints<AppUser>().
     AddEntityFrameworkStores<StoreContext>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddSignalR();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddEndpointsApiExplorer();
@@ -50,11 +51,14 @@ app.UseCors(x => x.AllowAnyHeader().
                         AllowCredentials().
                         WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
+
+
 app.UseAuthentication();  // Ensure this is before authorization
 app.UseAuthorization();   // Authorization after authentication
 
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
+app.MapHub<NotificationHub>("/hub/notifications");
 
 
 try

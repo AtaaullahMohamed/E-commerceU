@@ -10,6 +10,8 @@ namespace Core.Entities.OrderAggregate
     {
         Pending,
         PaymentReceived,
-        PaymentFailed
+        PaymentFailed,
+        PaymentMismatch
+
     }
 }
