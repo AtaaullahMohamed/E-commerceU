@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Core.Specifications;
 using Api.RequestHelpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -33,6 +34,7 @@ namespace Api.Controllers
             return product;
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
@@ -46,6 +48,8 @@ namespace Api.Controllers
             return BadRequest("Problem Creating Product!");
 
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpPut("{id:int}")]
         public async Task<ActionResult<Product>> UpdateProduct(int id,Product product)
         {
@@ -63,6 +67,8 @@ namespace Api.Controllers
 
             return BadRequest("Problem Updating Product!");
         }
+
+        [Authorize(Roles = "Admin")]
 
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)

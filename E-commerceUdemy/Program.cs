@@ -4,6 +4,7 @@ using E_commerceUdemy.Middleware;
 using E_commerceUdemy.SignalR;
 using Infrastructure.Data;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -28,7 +29,10 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
 builder.Services.AddSingleton<ICartService, CartService>();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>().
-    AddEntityFrameworkStores<StoreContext>();
+    AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<StoreContext>();
+
+
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSignalR();
@@ -56,10 +60,13 @@ app.UseCors(x => x.AllowAnyHeader().
 app.UseAuthentication();  // Ensure this is before authorization
 app.UseAuthorization();   // Authorization after authentication
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
 app.MapHub<NotificationHub>("/hub/notifications");
-
+app.MapFallbackToController("Index","Fallback");
 
 try
 {
@@ -67,8 +74,10 @@ try
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<StoreContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
     await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context);
+    await StoreContextSeed.SeedAsync(context, userManager);
 }
 catch (Exception ex)
 {

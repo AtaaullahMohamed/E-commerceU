@@ -15,6 +15,8 @@ import { CheckoutSuccessComponent } from './features/checkout/checkout-success/c
 import { OrderComponent } from './featuers/orders/order/order.component';
 import { OrderDetailedComponent } from './featuers/orders/order-detailed/order-detailed.component';
 import { orderCompleteGuard } from './core/guards/order-complete.guard';
+import { AdminComponent } from './features/admin/admin.component';
+import { adminGuard } from './core/guard/admin.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -30,7 +32,7 @@ export const routes: Routes = [
     { path: 'account/register', component: RegisterComponent },
     { path: 'test-error', component: TestErrorComponent },
     { path: 'not-found', component: NotFoundComponent },
-    { path: 'server-error', component: ServerErrorComponent },
+    { path: 'admin', component: AdminComponent, canActivate: [authGuard, adminGuard] },
     { path: '**', redirectTo: '', pathMatch: 'full' }
 
 ];

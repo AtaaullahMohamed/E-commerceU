@@ -3,10 +3,8 @@ using Core.Entities;
 using E_commerceUdemy.DTOs;
 using E_commerceUdemy.Extenions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace E_commerceUdemy.Controllers
@@ -63,7 +61,8 @@ namespace E_commerceUdemy.Controllers
                 user.FirstName,
                 user.LastName,
                 user.Email,
-               Address= user.Address.ToDto()
+               Address= user.Address.ToDto(),
+               Roles=User.FindFirstValue(ClaimTypes.Role)
             });
 
         }

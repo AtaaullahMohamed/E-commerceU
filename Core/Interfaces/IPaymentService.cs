@@ -10,5 +10,7 @@ namespace Core.Interfaces
     public interface IPaymentService
     {
         Task<ShoppingCart?> CreateOrUpdatePaymnetIntent(string cartId);
+        Task<string> RefundPayment(string paymentIntentId);
+
     }
 }
